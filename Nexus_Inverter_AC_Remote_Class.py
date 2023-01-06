@@ -5,7 +5,7 @@ import threading
 class Remote():
     """A class serving as a template for Nexus AC inverter remote"""
     def __init__(self):
-        self.power = True
+        self.power = False
         # self.possible_modes = list(range(3))
         self.current_mode = 0
         self.current_temp = 24
@@ -18,9 +18,10 @@ class Remote():
         self.fan_speed = 5
         self.direction = None
 
-    def power(self):
+    def switch(self):
         """Remote method to control the activity the Air Condition"""
         self.power = not self.power
+        print(f"Power: {self.power}")
 
     def mode(self):
         if self.power:
