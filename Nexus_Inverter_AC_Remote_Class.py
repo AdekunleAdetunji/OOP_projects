@@ -104,3 +104,6 @@ class Remote():
                 else:  # Block to return to angle 15 if direction/angle equals 90
                     self.direction = 15
                     print(f"Angle: {self.direction}")
+
+remote_1 = Remote()
+remote_1.switch()
