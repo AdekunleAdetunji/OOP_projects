@@ -46,15 +46,15 @@ while True:
                     prompt = input()
 
                     if prompt.lower() == 'b':  # Condition to call the account object balance method
-                        user.balance_check(password)
+                        user.balance_check()
                     elif prompt.lower() == 'w':  # Condition to execute withdrawal from account
                         amount = input("Enter Amount: ")
-                        user.withdraw(amount, password=password)
+                        user.withdraw(amount)
                     elif prompt.lower() == 'i':  # Condition to call account object info method
-                        user.show(password)
+                        user.show()
                     elif prompt.lower() == 'd':  # Condition to call execute deposit into account object
                         amount = input("Enter Amount: ")
-                        user.deposit(amount, password)
+                        user.deposit(amount)
                     else:
                         print("Thanks for checking in, see you some other time")
                         break
@@ -67,7 +67,7 @@ while True:
         except KeyError:
             print("Account does not exist")
         except Exception as e:
-            print("Invalid password")
+            print(e)
     else:
         print("Thanks for checking in, hope to see you some other time.")
         break
