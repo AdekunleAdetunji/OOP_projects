@@ -2,6 +2,11 @@
 from account import Account
 
 
+class AbortTransaction(Exception):
+    """ Raises error message if error occurs with transaction"""
+    pass
+
+
 class Bank():
     """ A class that models a bank """
     def __init__(self, name):
@@ -18,7 +23,7 @@ class Bank():
         starting_balance = input("Make first deposit: ")
         # Condition to check if balance > 0
         if int(starting_balance) < 0 or not starting_balance.isnumeric():
-            raise Exception("Invalid starting balance")
+            raise AbortTransaction("Invalid starting balance")
         account_obj = Account(name, password, int(starting_balance))
         self.accounts[self.next_account] = account_obj
         self.next_account += 1
@@ -28,26 +33,26 @@ class Bank():
         account_num = input("Enter account number: ")
         # Exception to raise error for invalid account number
         if not account_num.isnumeric():
-            raise Exception("Invalid account number")
+            raise AbortTransaction("Invalid account number")
         if int(account_num) not in self.accounts.keys():
-            raise Exception("Account number not in database")
+            raise AbortTransaction("Account number not in database")
         account_obj = self.accounts[int(account_num)]
         password = input("Enter Password: ")
         if password != account_obj.password:  # Exception to check for correct password
-            raise Exception("invalid password")
+            raise AbortTransaction("invalid password")
         account_obj.balance_check()
 
     def withdraw(self):
         """ A method to initiate withdrawal from account"""
         account_num = input("Enter account number: ")
         if not account_num.isnumeric():
-            raise Exception("Account number can only be numbers")
+            raise AbortTransaction("Account number can only be numbers")
         if int(account_num) not in self.accounts.keys():
-            raise Exception("Account number not in database")
+            raise AbortTransaction("Account number not in database")
         account_obj = self.accounts[account_num]
         password = input("Enter password: ")
         if password != account_obj.password:
-            raise Exception("Invalid password")
+            raise AbortTransaction("Invalid password")
         print(f"Welcome {account_obj.name}")
         amount = input("Enter withdrawal amount: ")
         account_obj.withdraw(amount)
@@ -56,13 +61,13 @@ class Bank():
         """ Method to make deposit into account"""
         account_num = input("Enter account number: ")
         if not account_num.isnumeric():
-            raise Exception("Invalid account number")
+            raise AbortTransaction("Invalid account number")
         if int(account_num) not in self.accounts.keys():
-            raise Exception("Account number not in database")
+            raise AbortTransaction("Account number not in database")
         account_obj = self.accounts[account_num]
         password = input("Enter password: ")
         if password != account_obj.password:
-            raise Exception("Invalid password")
+            raise AbortTransaction("Invalid password")
         print(f"Welcome {account_obj.name}")
         amount = input("Enter deposit amount: ")
         account_obj.deposit(amount)
@@ -71,13 +76,13 @@ class Bank():
         """ Method to close down bank account """
         account_num = input("Enter account number: ")
         if not account_num.isnumeric():
-            raise Exception("Invalid account number")
+            raise AbortTransaction("Invalid account number")
         if int(account_num) not in self.accounts.keys():
-            raise Exception("Account number not in database")
+            raise AbortTransaction("Account number not in database")
         account_obj = self.accounts[account_num]
         password = input("Enter password: ")
         if password != account_obj.password:
-            raise Exception("Invalid password")
+            raise AbortTransaction("Invalid password")
         account_obj.balance_check()
         del self.accounts[account_num]
 
@@ -85,11 +90,11 @@ class Bank():
         """ Method to return account info """
         account_num = input("Enter account number: ")
         if not account_num.isnumeric():
-            raise Exception("Invalid account number")
+            raise AbortTransaction("Invalid account number")
         if int(account_num) not in self.accounts.keys():
-            raise Exception("Account number not in database")
+            raise AbortTransaction("Account number not in database")
         account_obj = self.accounts[account_num]
         password = input("Enter password: ")
         if password != account_obj.password:
-            raise Exception("Invalid password")
+            raise AbortTransaction("Invalid password")
         account_obj.show()

@@ -1,5 +1,5 @@
 # Main script that calls the Bank class
-from bank import Bank
+from bank import *
 
 bank_obj = Bank('First_bank')
 
@@ -53,7 +53,7 @@ while True:
         else:
             print("Thanks for checking in, see you some other time")
             break
-    except Exception as e:
+    except AbortTransaction as e:
         print(e)
 
 print("Done")
